@@ -1,7 +1,10 @@
 import { Button } from "./components/ui/button";
 
 function App() {
-  return <Button className="bg-gray-600 w-44">Entrar</Button>;
+  return (
+    <div className="h-full w-full">
+      <Button className="flex w-44 bg-gray-600">Entrar</Button>
+    </div>
+  );
 }
-
 export default App;
