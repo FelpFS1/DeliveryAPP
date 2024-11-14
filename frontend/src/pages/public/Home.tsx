@@ -1,3 +1,4 @@
+import ThemeButton from "@/components/ThemeButton";
 import { useAuth, UserButton } from "@clerk/clerk-react";
 import { useEffect } from "react";
 
@@ -15,6 +16,7 @@ export default function HomePage() {
 
   return (
     <div>
+      <ThemeButton position="top-2 left-2" />
       Home Page!
       <UserButton />
     </div>

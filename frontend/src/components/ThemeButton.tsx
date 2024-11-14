@@ -1,24 +1,30 @@
 import { Moon, Sun } from "lucide-react";
 import { Button } from "./ui/button";
-import { useState } from "react";
-type SwitchTheme = "light" | "dark";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "@/redux/store";
+import { switchTheme } from "@/redux/theme/slice";
 
-export default function ThemeButton() {
-  const [theme, setTheme] = useState<SwitchTheme>("light");
+export default function ThemeButton(props: { position: string }) {
+  const { theme } = useSelector((state: RootState) => state.theme);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleSwitchTheme = () => {
-    setTheme((currentTheme) => {
-      if (currentTheme === "dark") {
-        return "light";
-      }
-      return "dark";
-    });
+    dispatch(switchTheme());
   };
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+    }
+  }, [theme]);
   return (
     <Button
       onClick={handleSwitchTheme}
       variant="outline"
-      className="absolute left-1 top-1"
+      className={`absolute ${props.position}`}
     >
       {theme === "dark" ? (
         <Sun className="text-white" />
