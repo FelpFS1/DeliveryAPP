@@ -2,15 +2,26 @@ import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/public/Home";
 import LoginPage from "./pages/Login";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <HomePage />,
+    },
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+  ],
   {
-    path: "/",
-    element: <HomePage />,
+    future: {
+      v7_fetcherPersist: true,
+      v7_skipActionErrorRevalidation: true,
+      v7_partialHydration: true,
+      v7_relativeSplatPath: true,
+      v7_normalizeFormMethod: true,
+    },
   },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-]);
+);
 
 export default router;
