@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface InitialStateTheme {
-  theme: "light" | "dark";
+  theme: string | null;
 }
 
 const initialState: InitialStateTheme = {
-  theme: "light",
+  theme: localStorage.getItem("app-delivey-theme"),
 };
 
 export const themeSlice = createSlice({
@@ -15,8 +15,10 @@ export const themeSlice = createSlice({
     switchTheme: (state) => {
       if (state.theme === "dark") {
         state.theme = "light";
+        localStorage.setItem("app-delivey-theme", state.theme);
       } else {
         state.theme = "dark";
+        localStorage.setItem("app-delivey-theme", state.theme);
       }
     },
   },
