@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/redux/store";
 import { switchTheme } from "@/redux/theme/slice";
 
-export default function ThemeButton(props: { position: string }) {
+export default function ThemeButton(props: { position?: string }) {
   const { theme } = useSelector((state: RootState) => state.theme);
   const dispatch = useDispatch<AppDispatch>();
 

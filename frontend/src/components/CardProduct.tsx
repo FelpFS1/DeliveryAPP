@@ -2,13 +2,13 @@ import { User } from "lucide-react";
 
 export default function CardProduct() {
   return (
-    <div className="grid h-48 w-full cursor-pointer grid-cols-2 rounded-2xl border-2 bg-white p-2 shadow-md">
+    <div className="grid h-48 w-full cursor-pointer grid-cols-2 items-center rounded-2xl border-2 bg-white p-2 shadow-md hover:bg-zinc-50">
       <div className="flex flex-col gap-2">
         <h4 className="text-black">Açai 300ml</h4>
         <p className="text-gray-500">
           Obs: Os complementos não são separados. Todos virão dentro do açai.
         </p>
-        <span className="flex gap-1 font-bold text-black">
+        <span className="flex animate-pulse gap-1 font-bold text-black">
           <User />
           Serve 1 pessoa
         </span>
