@@ -15,11 +15,11 @@ export default function LoginPage() {
   const { userId, isLoaded } = useAuth();
   const navigate = useNavigate();
   const { theme } = useSelector((state: RootState) => state.theme);
+
   useEffect(() => {
     if (!isLoaded) return;
-
     if (userId) {
-      navigate("/");
+      navigate("/redirect");
     }
   }, [isLoaded, navigate, userId]);
   return (
@@ -32,7 +32,7 @@ export default function LoginPage() {
             <p className="text-zinc-400">
               Faça login ou cadastre-se para uma saborosa experiência!
             </p>
-            <SignInButton mode="modal">
+            <SignInButton mode="modal" forceRedirectUrl={"/redirect"}>
               <Button
                 variant={theme === "dark" ? "outline" : "default"}
                 className="font-bold"

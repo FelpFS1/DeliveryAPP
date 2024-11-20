@@ -1,41 +1,43 @@
 import CardProduct from "@/components/CardProduct";
 import Loading from "@/components/Loading";
-import ThemeButton from "@/components/ThemeButton";
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/redux/store";
 import { ArrowRight, Dot, ShoppingCart } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAuth, UserButton } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
+import { useUser } from "@clerk/clerk-react";
+import Header from "@/components/Header";
 
 export default function HomePage() {
-  const { userId, isSignedIn, isLoaded } = useAuth();
+  const { userId, isSignedIn } = useAuth();
   const { theme } = useSelector((state: RootState) => state.theme);
   const navigate = useNavigate();
+  const { user, isLoaded } = useUser();
+
+  const [isShow, setIsShow] = useState(false);
 
   useEffect(() => {
-    if (!isLoaded) {
-      return;
-    }
+    if (!isLoaded) return;
 
-    if (!userId) {
+    const role = user?.publicMetadata?.role;
+
+    if (role === "admin") {
+      navigate("/admin");
+    } else if (role === "user") {
+      setIsShow(true);
+      navigate("/");
+    } else {
       navigate("/login");
     }
-  }, [isLoaded, isSignedIn, navigate, userId]);
+  }, [isLoaded, isSignedIn, navigate, user?.publicMetadata?.role, userId]);
 
   return (
     <>
-      {isLoaded ? (
+      {isLoaded && isShow ? (
         <div>
-          <header className="relative flex h-32 w-full justify-between border-b-2 px-10 py-2">
-            <div className="relative left-2">
-              <ThemeButton />
-            </div>
-            <div className="">
-              <UserButton />
-            </div>
-          </header>
+          <Header />
           <main className="h-full w-full px-10">
             <header className="relative bottom-10 h-36 w-full rounded-2xl border-2 bg-white shadow-md">
               <div className="relative bottom-10 m-auto h-20 w-20 rounded-full bg-zinc-100">
