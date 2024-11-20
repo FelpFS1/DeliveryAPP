@@ -20,7 +20,7 @@ createRoot(document.getElementById("root")!).render(
     <Provider store={store}>
       <ClerkProvider
         publishableKey={PUBLISHABLE_KEY}
-        afterSignOutUrl={"/"}
+        afterSignOutUrl={"/redirect"}
         localization={ptBR}
       >
         <RouterProvider
