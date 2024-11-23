@@ -3,39 +3,39 @@ import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/redux/store";
 import { ArrowRight, Dot, ShoppingCart } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "@clerk/clerk-react";
 import { useUser } from "@clerk/clerk-react";
 import Header from "@/components/Header";
+import Product from "@/components/Product";
 
 export default function HomePage() {
-  const { userId, isSignedIn } = useAuth();
-  const { theme } = useSelector((state: RootState) => state.theme);
+  const theme = useSelector((state: RootState) => state.theme.theme);
   const navigate = useNavigate();
   const { user, isLoaded } = useUser();
 
-  const [isShow, setIsShow] = useState(false);
+  const role = useMemo(
+    () => user?.publicMetadata?.role,
+    [user?.publicMetadata],
+  );
+  const isShow = useMemo(() => isLoaded && role === "user", [isLoaded, role]);
 
   useEffect(() => {
     if (!isLoaded) return;
 
-    const role = user?.publicMetadata?.role;
-
     if (role === "admin") {
       navigate("/admin");
     } else if (role === "user") {
-      setIsShow(true);
       navigate("/");
     } else {
       navigate("/login");
     }
-  }, [isLoaded, isSignedIn, navigate, user?.publicMetadata?.role, userId]);
+  }, [isLoaded, role, navigate]);
 
   return (
     <>
-      {isLoaded && isShow ? (
+      {isShow ? (
         <div>
           <Header />
           <main className="h-full w-full px-10">
@@ -64,8 +64,8 @@ export default function HomePage() {
                 <ArrowRight /> Açai
               </h2>
               <div className="grid grid-cols-2 gap-5">
-                <CardProduct />
-                <CardProduct />
+                <Product />
+                <Product />
               </div>
             </section>
             <section className="mb-5 grid h-full w-full">

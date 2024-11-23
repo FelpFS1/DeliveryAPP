@@ -31,5 +31,6 @@ createRoot(document.getElementById("root")!).render(
         />
       </ClerkProvider>
     </Provider>
+    ,
   </StrictMode>,
 );
