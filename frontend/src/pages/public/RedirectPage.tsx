@@ -20,7 +20,7 @@ export default function RedirectPage() {
     }
   }, [isLoaded, navigate, user?.publicMetadata?.role]);
   return (
-    <div className="flex h-[100vh] w-[100vw] items-center justify-center">
+    <div className="flex h-[100vh] w-full items-center justify-center">
       <Loading />
     </div>
   );

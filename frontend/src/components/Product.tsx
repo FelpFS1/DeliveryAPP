@@ -8,30 +8,31 @@ import {
 
 import CardProduct from "./CardProduct";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useMemo, useReducer, useState } from "react";
 import {
   complementsReducer,
   initialComplements,
 } from "@/reducers/complementsReducer";
-import { Check } from "lucide-react";
+import { Check, Minus, Plus } from "lucide-react";
 import React from "react";
 import ComplementProductItem from "./ComplementProductItem";
+import { RadioGroup } from "./ui/radio-group";
+import FlavorProductItem from "./FlavorProductItem";
+import { Button } from "./ui/button";
 
 function Product() {
   const [complementsState, dispatch] = useReducer(
     complementsReducer,
     initialComplements,
   );
-  const [complementQuantity, setComplementQuantity] = useState(0);
-  const quantityComplelents = useMemo(() => {
+
+  const [flavorValue, setFlavorValue] = useState<string | undefined>(undefined);
+  const quantityComplements = useMemo(() => {
     return complementsState.reduce((prev, curr) => {
       return prev + curr.quantity;
     }, 0);
   }, [complementsState]);
 
-  useEffect(() => {
-    setComplementQuantity(quantityComplelents);
-  }, [quantityComplelents]);
   return (
     <Dialog>
       <DialogTrigger>
@@ -66,15 +67,15 @@ function Product() {
                     </div>
                     <div className="flex items-center justify-end gap-4">
                       <span className="flex h-8 items-center rounded bg-gray-400 p-2 font-medium">
-                        {complementQuantity}/3
+                        {quantityComplements}/3
                       </span>
                       <span
-                        className={`${complementQuantity >= 1 ? "bg-green-400" : "bg-gray-400"} flex h-8 items-center rounded p-2 font-medium uppercase`}
+                        className={`${quantityComplements >= 1 ? "bg-green-400" : "bg-gray-400"} flex h-8 items-center rounded p-2 font-medium uppercase`}
                       >
                         obrigatório
                       </span>
                       <span
-                        className={`${complementQuantity >= 1 ? "text-green-400 opacity-100" : "opacity-0"}`}
+                        className={`${quantityComplements >= 1 ? "text-green-400 opacity-100" : "opacity-0"}`}
                       >
                         <Check />
                       </span>
@@ -83,11 +84,47 @@ function Product() {
                   {complementsState.map((complement) => (
                     <ComplementProductItem
                       complement={complement}
-                      complementQuantity={complementQuantity}
+                      complementQuantity={quantityComplements}
                       dispatch={dispatch}
                     />
                   ))}
                 </section>
+                <section className="mb-14">
+                  <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-3">
+                    <div>
+                      <h4 className="text-lg">Sabores</h4>
+                      <p>Escolha até 1 sabor</p>
+                    </div>
+                    <div className="flex items-center justify-end gap-4">
+                      <span
+                        className={`${flavorValue ? "text-green-400 opacity-100" : "opacity-0"}`}
+                      >
+                        <Check />
+                      </span>
+                    </div>
+                  </header>
+                  <RadioGroup onValueChange={(value) => setFlavorValue(value)}>
+                    <FlavorProductItem value={"Maracujá"} />
+                    <FlavorProductItem value={"Cupuaçu"} />
+                    <FlavorProductItem value={"Manga"} />
+                    <FlavorProductItem value={"Sem sabor"} />
+                  </RadioGroup>
+                </section>
+                <div className="fixed bottom-2 flex w-1/2 items-center justify-between bg-white p-4">
+                  <div className="flex items-center justify-center gap-3 rounded border p-2">
+                    <Minus />
+
+                    <span>1</span>
+                    <Plus
+                      className={`${quantityComplements >= 3 ? "cursor-not-allowed" : "cursor-pointer"} ml-1 text-3xl text-red-400`}
+                    />
+                  </div>
+                  <div>
+                    <Button disabled={quantityComplements < 1}>
+                      Adicionar
+                    </Button>
+                  </div>
+                </div>
               </form>
             </main>
           </div>

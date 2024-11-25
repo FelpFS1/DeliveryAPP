@@ -25,7 +25,7 @@ export default function LoginPage() {
   return (
     <>
       {isLoaded ? (
-        <div className="grid grid-cols-2">
+        <div className="grid h-screen grid-cols-2 overflow-hidden">
           <div className="flex h-screen flex-col items-center justify-center gap-3 p-5">
             <ThemeButton position="left-1 top-2" />
             <h1 className="text-4xl font-bold">Bem-vindo (a)!</h1>
