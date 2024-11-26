@@ -1,7 +1,7 @@
 export interface ComplementsType {
-  id?: number;
   name: string;
   quantity: number;
+  price: string;
 }
 
 export interface Actions {

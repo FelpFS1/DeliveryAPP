@@ -1,7 +1,8 @@
-import { Actions, ComplementsType } from "@/reducers/complementsTypes";
+import { Actions } from "@/reducers/complementsTypes";
 
 import React from "react";
 import { Minus, Plus } from "lucide-react";
+import { ComplementsType } from "@/db/fakedb";
 interface ComplementsProductTypes {
   complement: ComplementsType;
   dispatch: React.Dispatch<Actions>;
@@ -12,17 +13,20 @@ function ComplementProductItem({
   dispatch,
   complementQuantity,
 }: ComplementsProductTypes) {
+  if (!complement.quantity) {
+    complement.quantity = 0;
+  }
+
   return (
-    <div
-      key={complement.name}
-      className="flex items-center justify-between border-b-2 bg-transparent p-4"
-    >
+    <div className="flex items-center justify-between border-b-2 bg-transparent p-4">
       <span>
-        <p className="text-base font-medium">{complement.name}</p>
+        <p className="text-base font-medium">
+          {complement.name} {complement.price ? "- R$" + complement.price : ""}
+        </p>
       </span>
       <div className="flex items-center">
         <Minus
-          className={`${complement.quantity < 1 ? "hidden" : "flex"} mr-1 cursor-pointer items-center text-3xl`}
+          className={`${complement.quantity < 1 ? "hidden" : ""}`}
           onClick={() => {
             dispatch({
               type: "DECREMENT_COMPLEMENT_QUANTITY",
@@ -31,7 +35,7 @@ function ComplementProductItem({
           }}
         />
 
-        <span className={`${complement.quantity < 1 ? "hidden" : ""} `}>
+        <span className={`${complement.quantity < 1 ? "hidden" : ""}`}>
           {complement.quantity}
         </span>
         <Plus

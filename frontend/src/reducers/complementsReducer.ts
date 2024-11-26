@@ -1,18 +1,5 @@
-import { Actions, ComplementsType } from "./complementsTypes";
-
-export const initialComplements: ComplementsType[] = [
-  {
-    id: 1,
-    name: "Granola",
-    quantity: 0,
-  },
-  {
-    id: 2,
-    name: "Amendoim",
-    quantity: 0,
-  },
-  { id: 3, name: "Passas", quantity: 0 },
-];
+import { ComplementsType } from "@/db/fakedb";
+import { Actions } from "./complementsTypes";
 
 export function complementsReducer(
   state: ComplementsType[],
@@ -27,11 +14,14 @@ export function complementsReducer(
     if (isAlready) {
       return state.map((complement) =>
         complement.name === complementName
-          ? { ...complement, quantity: complement.quantity + 1 }
+          ? {
+              ...complement,
+              quantity: complement.quantity ? complement.quantity + 1 : 1,
+            }
           : complement,
       );
     }
-    return [...state, { name: complementName, quantity: 1 }];
+    return [...state];
   };
 
   const decrementQuantityComplement = () => {
@@ -39,10 +29,13 @@ export function complementsReducer(
       (complement) => complement.name === complementName,
     );
 
-    if (isAlready && isAlready.quantity > 0) {
+    if (isAlready && isAlready.quantity) {
       return state.map((complement) =>
-        complement.name === isAlready.name && isAlready.quantity > 0
-          ? { ...complement, quantity: complement.quantity - 1 }
+        complement.name === isAlready.name && isAlready.quantity
+          ? {
+              ...complement,
+              quantity: complement.quantity ? complement.quantity - 1 : 1,
+            }
           : complement,
       );
     }

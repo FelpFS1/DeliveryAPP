@@ -8,12 +8,30 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import Header from "@/components/Header";
-import Product from "@/components/Product";
+
+import { db, dbTypes } from "@/db/fakedb";
 
 export default function HomePage() {
   const theme = useSelector((state: RootState) => state.theme.theme);
   const navigate = useNavigate();
   const { user, isLoaded } = useUser();
+
+  interface SepareteProducts {
+    type: string;
+    content: dbTypes[];
+  }
+
+  const separeteProductsType = db.reduce((prev, curr) => {
+    const isExistType = prev.find((item) => item.type === curr.productType);
+
+    if (isExistType) {
+      isExistType.content.push(curr);
+    } else {
+      prev.push({ type: curr.productType, content: [curr] });
+    }
+    return prev;
+  }, [] as SepareteProducts[]);
+  console.log(separeteProductsType);
 
   const role = useMemo(
     () => user?.publicMetadata?.role,
@@ -59,23 +77,19 @@ export default function HomePage() {
                 </p>
               </footer>
             </header>
-            <section className="mb-5 grid h-full w-full">
-              <h2 className="mb-2 flex items-center text-xl font-bold">
-                <ArrowRight /> Açai
-              </h2>
-              <div className="grid grid-cols-2 gap-5">
-                <Product />
-                <Product />
-              </div>
-            </section>
-            <section className="mb-5 grid h-full w-full">
-              <h2 className="mb-2 flex items-center text-xl font-bold">
-                <ArrowRight /> Petisqueira
-              </h2>
-              <div className="grid grid-cols-2 gap-5">
-                <CardProduct />
-              </div>
-            </section>
+            {separeteProductsType.map((item) => (
+              <section className="mb-5 grid h-full w-full">
+                <h2 className="mb-2 flex items-center text-xl font-bold">
+                  <ArrowRight /> {item.type}
+                </h2>
+                <div className="grid grid-cols-2 gap-5">
+                  {item.content.map((item, index) => (
+                    <CardProduct key={index} db={item} />
+                  ))}
+                </div>
+              </section>
+            ))}
+
             <div className="fixed bottom-5 right-10">
               <Button className="flex h-12 w-12 items-center justify-center rounded-full bg-primary font-bold text-white">
                 <span className="absolute bottom-9 right-1 h-5 w-5 rounded-full bg-white text-center text-black">
