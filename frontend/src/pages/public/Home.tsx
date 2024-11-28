@@ -3,23 +3,23 @@ import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import { RootState } from "@/redux/store";
 import { ArrowRight, Dot, ShoppingCart } from "lucide-react";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import Header from "@/components/Header";
 
 import { db, dbTypes } from "@/db/fakedb";
-
+import Cart from "@/components/Cart";
+interface SepareteProducts {
+  type: string;
+  content: dbTypes[];
+}
 export default function HomePage() {
   const theme = useSelector((state: RootState) => state.theme.theme);
+  const [cartIsOpen, setCartIsOpen] = useState(false);
   const navigate = useNavigate();
   const { user, isLoaded } = useUser();
-
-  interface SepareteProducts {
-    type: string;
-    content: dbTypes[];
-  }
 
   const separeteProductsType = db.reduce((prev, curr) => {
     const isExistType = prev.find((item) => item.type === curr.productType);
@@ -31,13 +31,17 @@ export default function HomePage() {
     }
     return prev;
   }, [] as SepareteProducts[]);
-  console.log(separeteProductsType);
 
   const role = useMemo(
     () => user?.publicMetadata?.role,
     [user?.publicMetadata],
   );
+
   const isShow = useMemo(() => isLoaded && role === "user", [isLoaded, role]);
+
+  const handleOpenOrCloseCart = () => {
+    setCartIsOpen((state) => !state);
+  };
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -91,7 +95,10 @@ export default function HomePage() {
             ))}
 
             <div className="fixed bottom-5 right-10">
-              <Button className="flex h-12 w-12 items-center justify-center rounded-full bg-primary font-bold text-white">
+              <Button
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-primary font-bold text-white"
+                onClick={() => handleOpenOrCloseCart()}
+              >
                 <span className="absolute bottom-9 right-1 h-5 w-5 rounded-full bg-white text-center text-black">
                   1
                 </span>
@@ -99,6 +106,7 @@ export default function HomePage() {
               </Button>
             </div>
           </main>
+          <Cart isOpen={cartIsOpen} handleOpenOrClose={handleOpenOrCloseCart} />
         </div>
       ) : (
         <Loading />

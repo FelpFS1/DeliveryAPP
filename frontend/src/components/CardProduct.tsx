@@ -33,7 +33,7 @@ export default function CardProduct({ db }: { db: dbTypes }) {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="grid h-48 w-full cursor-pointer grid-cols-2 items-center rounded-2xl border-2 bg-white p-2 text-left shadow-md hover:bg-zinc-50">
+        <div className="grid h-48 w-full cursor-pointer grid-cols-2 items-center rounded-2xl border-2 bg-white p-2 text-left shadow-md">
           <div className="flex flex-col gap-2">
             <h4 className="text-black">{db.name}</h4>
             <p className="text-gray-500">{db.observation}</p>
@@ -126,7 +126,7 @@ export default function CardProduct({ db }: { db: dbTypes }) {
                     ))}
                   </RadioGroup>
                 </section>
-                <section className="">
+                <section className="mb-12">
                   <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-3">
                     <div>
                       <h4 className="text-lg">Adicionais (pagos)</h4>

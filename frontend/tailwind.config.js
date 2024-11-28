@@ -52,6 +52,20 @@ module.exports = {
           5: "hsl(var(--chart-5))",
         },
       },
+      animation: {
+        "slide-in-from-right": "slide-in 0.3s ease-out forwards",
+        "slide-out-to-right": "slide-out 0.3s ease-out forwards",
+      },
+      keyframes: {
+        "slide-in": {
+          from: { transform: "translateX(100%)" },
+          to: { transform: "translateX(0)" },
+        },
+        "slide-out": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(100%)" },
+        },
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
