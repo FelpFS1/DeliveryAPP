@@ -7,7 +7,7 @@ import router from "./router.tsx";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { ptBR } from "@clerk/localizations";
 import { Provider } from "react-redux";
-import store from "./redux/store.ts";
+import store from "./features/redux/store.ts";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 

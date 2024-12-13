@@ -1,5 +1,5 @@
 import { dbTypes } from "@/db/fakedb";
-import { Check, Minus, Plus, User } from "lucide-react";
+import { Minus, Plus, User } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,27 +9,44 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import { Button } from "./ui/button";
-import { RadioGroup } from "@radix-ui/react-radio-group";
-import FlavorProductItem from "./FlavorProductItem";
-import ComplementProductItem from "./ComplementProductItem";
-import { useMemo, useReducer } from "react";
-import { complementsReducer } from "@/reducers/complementsReducer";
+
+import ComplementSection from "./ComplementsSection";
+import ComplementsPaidSection from "./ComplementsPaidSection";
+import { ComplementsType } from "@/reducers/complementsTypes";
+import { useCallback, useState } from "react";
+import FlavorSection from "./FlavorSection";
+
+export interface ProductToCartType {
+  id?: string;
+  name?: string;
+  price?: string;
+  quantity?: number;
+  simpleComplements?: ComplementsType[];
+  paidComplements?: ComplementsType[];
+  flavor?: string;
+}
 
 export default function CardProduct({ db }: { db: dbTypes }) {
-  const { complements } = db.additional;
-  const [complementsState, dispatch] = useReducer(
-    complementsReducer,
-    complements,
-  );
+  const [productToCart, setProductToCart] = useState<ProductToCartType>({
+    name: db.name,
+    price: db.price,
+  } as ProductToCartType);
 
-  const quantityComplements = useMemo(() => {
-    return complementsState.reduce((prev, curr) => {
-      if (curr.quantity) {
-        return prev + curr.quantity;
-      }
-      return prev;
-    }, 0);
-  }, [complementsState]);
+  const { complements, paidExtras } = db.additional;
+
+  const handleCreateProductToCart = useCallback((data: ProductToCartType) => {
+    setProductToCart((state) => {
+      return {
+        ...state,
+        ...data,
+      };
+    });
+  }, []);
+
+  const handleAddProductToCart = () => {
+    console.log(productToCart);
+  };
+
   return (
     <Dialog>
       <DialogTrigger>
@@ -72,76 +89,18 @@ export default function CardProduct({ db }: { db: dbTypes }) {
             </DialogHeader>
             <main>
               <form action="" className="h-[80vh] w-full overflow-y-auto">
-                <section className="">
-                  <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-3">
-                    <div>
-                      <h4 className="text-lg">Complementos</h4>
-                      <p>Escolha pelo menos 1 opção</p>
-                    </div>
-                    <div className="flex items-center justify-end gap-4">
-                      <span className="flex items-center rounded bg-gray-400 p-1 font-medium">
-                        {quantityComplements}/3
-                      </span>
-                      <span
-                        className={`${quantityComplements > 0 ? "bg-green-400" : "bg-gray-400"} rounded px-2 py-1 font-medium uppercase`}
-                      >
-                        obrigatório
-                      </span>
-                      <span
-                        className={`${quantityComplements > 0 ? "text-green-400 opacity-100" : "opacity-0"}`}
-                      >
-                        <Check />
-                      </span>
-                    </div>
-                  </header>
-                  {complementsState.map((complement) => (
-                    <ComplementProductItem
-                      key={complement.name}
-                      complement={complement}
-                      complementQuantity={quantityComplements}
-                      dispatch={dispatch}
-                    />
-                  ))}
-                </section>
-                <section>
-                  <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-3">
-                    <div>
-                      <h4 className="text-lg">Sabores</h4>
-                      <p>Escolha até 1 sabor</p>
-                    </div>
-                    <div className="flex items-center justify-end gap-4">
-                      <span
-                        className={`${quantityComplements > 0 ? "text-green-400 opacity-100" : "opacity-0"}`}
-                      >
-                        <Check />
-                      </span>
-                    </div>
-                  </header>
-                  <RadioGroup>
-                    {db.additional.flavor.map((flavor) => (
-                      <FlavorProductItem
-                        key={flavor.name}
-                        value={flavor.name}
-                      />
-                    ))}
-                  </RadioGroup>
-                </section>
-                <section className="mb-12">
-                  <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-3">
-                    <div>
-                      <h4 className="text-lg">Adicionais (pagos)</h4>
-                      <p>Escolha pelo menos 1 opção</p>
-                    </div>
-                  </header>
-                  {db.additional.paidExtras.map((complement) => (
-                    <ComplementProductItem
-                      key={complement.name}
-                      complement={complement}
-                      complementQuantity={quantityComplements}
-                      dispatch={dispatch}
-                    />
-                  ))}
-                </section>
+                <ComplementSection
+                  complements={complements}
+                  handleCreateProductToCart={handleCreateProductToCart}
+                />
+                <ComplementsPaidSection
+                  paidComplements={paidExtras}
+                  handleCreateProductToCart={handleCreateProductToCart}
+                />
+                <FlavorSection
+                  db={db}
+                  handleCreateProductToCart={handleCreateProductToCart}
+                />
                 <div className="fixed bottom-2 flex w-1/2 items-center justify-between bg-white p-4">
                   <div className="flex items-center justify-center gap-3 rounded border p-2">
                     <Minus />
@@ -150,7 +109,12 @@ export default function CardProduct({ db }: { db: dbTypes }) {
                     <Plus />
                   </div>
                   <div>
-                    <Button>Adicionar</Button>
+                    <Button
+                      type="button"
+                      onClick={() => handleAddProductToCart()}
+                    >
+                      Adicionar
+                    </Button>
                   </div>
                 </div>
               </form>

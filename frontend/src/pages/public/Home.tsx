@@ -82,13 +82,13 @@ export default function HomePage() {
               </footer>
             </header>
             {separeteProductsType.map((item) => (
-              <section className="mb-5 grid h-full w-full">
+              <section className="mb-5 grid h-full w-full" key={item.type}>
                 <h2 className="mb-2 flex items-center text-xl font-bold">
                   <ArrowRight /> {item.type}
                 </h2>
                 <div className="grid grid-cols-2 gap-5">
-                  {item.content.map((item, index) => (
-                    <CardProduct key={index} db={item} />
+                  {item.content.map((item) => (
+                    <CardProduct key={item.id} db={item} />
                   ))}
                 </div>
               </section>

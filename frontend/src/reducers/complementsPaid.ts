@@ -1,16 +1,16 @@
 import { ComplementsType } from "@/db/fakedb";
-import { ComplementsActions } from "./complementsTypes";
+import { PaidComplementsActions } from "./complementsTypes";
 
-export function complementsReducer(
+export function complementsPaidReducer(
   state: ComplementsType[],
-  actions: ComplementsActions,
+  actions: PaidComplementsActions,
 ): ComplementsType[] {
   const complementName = actions.name;
-
-  const incrementQuantityComplement = () => {
+  const incrementQuantityPaidComplement = () => {
     const isAlready = state.find(
       (complement) => complement.name === complementName,
     );
+
     if (isAlready) {
       return state.map((complement) =>
         complement.name === complementName
@@ -24,12 +24,12 @@ export function complementsReducer(
     return [...state];
   };
 
-  const decrementQuantityComplement = () => {
+  const decrementQuantityPaidComplement = () => {
     const isAlready = state.find(
       (complement) => complement.name === complementName,
     );
 
-    if (isAlready && isAlready.quantity) {
+    if (isAlready && isAlready.quantity && isAlready.price) {
       return state.map((complement) =>
         complement.name === isAlready.name && isAlready.quantity
           ? {
@@ -43,10 +43,10 @@ export function complementsReducer(
   };
 
   switch (actions.type) {
-    case "INCREMENT_COMPLEMENT_QUANTITY":
-      return incrementQuantityComplement();
-    case "DECREMENT_COMPLEMENT_QUANTITY":
-      return decrementQuantityComplement();
+    case "INCREMENT_PAID_COMPLEMENT_QUANTITY":
+      return incrementQuantityPaidComplement();
+    case "DECREMENT_PAID_COMPLEMENT_QUANTITY":
+      return decrementQuantityPaidComplement();
     default:
       return state;
   }

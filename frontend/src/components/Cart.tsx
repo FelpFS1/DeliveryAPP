@@ -1,6 +1,8 @@
 import { X } from "lucide-react";
 import { Button } from "./ui/button";
 import CartItem from "./CartItem";
+import { Dialog, DialogTrigger } from "./ui/dialog";
+import AdressModal from "./AdressModal";
 
 interface CartPropsTypes {
   isOpen: boolean;
@@ -39,7 +41,12 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
             <span>RS32</span>
           </div>
           <div>
-            <Button>Prosseguir para pagamento</Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button>Prosseguir para pagamento</Button>
+              </DialogTrigger>
+              <AdressModal />
+            </Dialog>
           </div>
         </footer>
       </div>

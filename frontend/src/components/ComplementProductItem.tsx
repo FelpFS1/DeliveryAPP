@@ -5,12 +5,15 @@ import { Minus, Plus } from "lucide-react";
 import { ComplementsType } from "@/db/fakedb";
 interface ComplementsProductTypes {
   complement: ComplementsType;
-  dispatch: React.Dispatch<Actions>;
+  handleDispatch: {
+    dispatch: React.Dispatch<Actions>;
+    types: { increment: string; decrement: string };
+  };
   complementQuantity: number;
 }
 function ComplementProductItem({
   complement,
-  dispatch,
+  handleDispatch: { dispatch, types },
   complementQuantity,
 }: ComplementsProductTypes) {
   if (!complement.quantity) {
@@ -29,7 +32,7 @@ function ComplementProductItem({
           className={`${complement.quantity < 1 ? "hidden" : ""}`}
           onClick={() => {
             dispatch({
-              type: "DECREMENT_COMPLEMENT_QUANTITY",
+              type: types.decrement,
               name: complement.name,
             });
           }}
@@ -45,7 +48,7 @@ function ComplementProductItem({
               ? undefined
               : () => {
                   dispatch({
-                    type: "INCREMENT_COMPLEMENT_QUANTITY",
+                    type: types.increment,
                     name: complement.name,
                   });
                 }

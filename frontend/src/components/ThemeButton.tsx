@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/redux/store";
-import { switchTheme } from "@/redux/theme/slice";
+import { switchTheme } from "@/features/redux/theme/slice";
 
 export default function ThemeButton(props: { position?: string }) {
   const { theme } = useSelector((state: RootState) => state.theme);

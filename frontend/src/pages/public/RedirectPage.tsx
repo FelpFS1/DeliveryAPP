@@ -6,10 +6,13 @@ import { useNavigate } from "react-router-dom";
 export default function RedirectPage() {
   const { user, isLoaded } = useUser();
   const navigate = useNavigate();
+  console.log(isLoaded);
+  
   useEffect(() => {
     if (!isLoaded) return;
 
     const role = user?.publicMetadata?.role;
+   
 
     if (role === "admin") {
       navigate("/admin");

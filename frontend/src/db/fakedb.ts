@@ -11,6 +11,7 @@ interface AdditionalTypes {
 }
 
 export interface dbTypes {
+  id: string;
   name: string;
   price: string;
   observation: string;
@@ -21,6 +22,7 @@ export interface dbTypes {
 
 export const db: dbTypes[] = [
   {
+    id: "1",
     name: "açai 300ml",
     price: "16",
     observation:
@@ -91,6 +93,7 @@ export const db: dbTypes[] = [
     },
   },
   {
+    id: "2",
     name: "açai 500ml",
     price: "20",
 
@@ -146,6 +149,7 @@ export const db: dbTypes[] = [
     },
   },
   {
+    id: "3",
     name: "açai 500ml",
     price: "20",
 
