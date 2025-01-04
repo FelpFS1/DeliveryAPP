@@ -3,6 +3,8 @@ import { Button } from "./ui/button";
 import CartItem from "./CartItem";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import AdressModal from "./AdressModal";
+import { useSelector } from "react-redux";
+import { RootState } from "@/features/redux/store";
 
 interface CartPropsTypes {
   isOpen: boolean;
@@ -10,6 +12,10 @@ interface CartPropsTypes {
 }
 
 export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
+  const { cart, cartTotalPrice } = useSelector(
+    (state: RootState) => state.cart,
+  );
+
   return (
     <div
       className={`${isOpen ? "block" : "hidden"} fixed inset-0 left-0 right-0 top-0 z-50 h-screen w-screen bg-black/80`}
@@ -30,15 +36,14 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
           </Button>
         </header>
         <main className="mb-10 h-full w-full overflow-auto">
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
+          {cart.map((cartItem) => (
+            <CartItem key={cartItem.id} cartItem={cartItem} />
+          ))}
         </main>
         <footer className="absolute bottom-0 z-50 flex w-full items-center justify-between border-t bg-white p-4">
           <div className="flex flex-col">
             <p>Valor total:</p>
-            <span>RS32</span>
+            <span>RS{cartTotalPrice}</span>
           </div>
           <div>
             <Dialog>

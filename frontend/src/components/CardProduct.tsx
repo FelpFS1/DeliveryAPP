@@ -12,22 +12,15 @@ import { Button } from "./ui/button";
 
 import ComplementSection from "./ComplementsSection";
 import ComplementsPaidSection from "./ComplementsPaidSection";
-import { ComplementsType } from "@/reducers/complements/complementsTypes";
 import { useCallback, useReducer, useState } from "react";
 import FlavorSection from "./FlavorSection";
 import { orderQuantityReducer } from "@/reducers/order/order-quantity";
-
-export interface ProductToCartType {
-  id?: string;
-  name?: string;
-  price?: string;
-  quantity?: number;
-  simpleComplements?: ComplementsType[];
-  paidComplements?: ComplementsType[];
-  flavor?: string;
-}
+import { ProductToCartType } from "@/features/redux/types/cartProductType";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/features/redux/cart/cart-slice";
 
 export default function CardProduct({ db }: { db: dbTypes }) {
+  const dispatch = useDispatch();
   const [orderQuantity, orderQuantityDispatch] = useReducer(
     orderQuantityReducer,
     1,
@@ -53,7 +46,7 @@ export default function CardProduct({ db }: { db: dbTypes }) {
   );
 
   const handleAddProductToCart = () => {
-    console.log(productToCart);
+    dispatch(addToCart(productToCart));
   };
 
   return (

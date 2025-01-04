@@ -9,6 +9,8 @@ import Header from "@/components/Header";
 
 import { db, dbTypes } from "@/db/fakedb";
 import Cart from "@/components/Cart";
+import { useSelector } from "react-redux";
+import { RootState } from "@/features/redux/store";
 interface SepareteProducts {
   type: string;
   content: dbTypes[];
@@ -18,16 +20,20 @@ export default function HomePage() {
   const navigate = useNavigate();
   const { user, isLoaded } = useUser();
 
-  const separeteProductsType = db.reduce((prev, curr) => {
-    const isExistType = prev.find((item) => item.type === curr.productType);
+  const { cart } = useSelector((state: RootState) => state.cart);
 
-    if (isExistType) {
-      isExistType.content.push(curr);
-    } else {
-      prev.push({ type: curr.productType, content: [curr] });
-    }
-    return prev;
-  }, [] as SepareteProducts[]);
+  const separeteProductsType = useMemo(() => {
+    return db.reduce((prev, curr) => {
+      const isExistType = prev.find((item) => item.type === curr.productType);
+
+      if (isExistType) {
+        isExistType.content.push(curr);
+      } else {
+        prev.push({ type: curr.productType, content: [curr] });
+      }
+      return prev;
+    }, [] as SepareteProducts[]);
+  }, []);
 
   const role = useMemo(
     () => user?.publicMetadata?.role,
@@ -96,9 +102,11 @@ export default function HomePage() {
                 className="flex h-12 w-12 items-center justify-center rounded-full bg-primary font-bold text-white"
                 onClick={() => handleOpenOrCloseCart()}
               >
-                <span className="absolute bottom-9 right-1 h-5 w-5 rounded-full bg-white text-center text-black">
-                  1
-                </span>
+                {cart.length > 0 && (
+                  <span className="absolute bottom-9 right-1 h-5 w-5 rounded-full bg-white text-center text-black">
+                    {cart.length}
+                  </span>
+                )}
                 <ShoppingCart />
               </Button>
             </div>

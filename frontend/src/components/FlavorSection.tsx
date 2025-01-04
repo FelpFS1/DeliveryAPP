@@ -1,4 +1,3 @@
-import { Check } from "lucide-react";
 import { RadioGroup } from "./ui/radio-group";
 import FlavorProductItem from "./FlavorProductItem";
 import { dbTypes } from "@/db/fakedb";
@@ -26,13 +25,6 @@ export default function FlavorSection({
         <div>
           <h4 className="text-lg">Sabores</h4>
           <p>Escolha até 1 sabor</p>
-        </div>
-        <div className="flex items-center justify-end gap-4">
-          <span
-          // className={`${quantityComplements > 0 ? "text-green-400 opacity-100" : "opacity-0"}`}
-          >
-            <Check />
-          </span>
         </div>
       </header>
       <RadioGroup
