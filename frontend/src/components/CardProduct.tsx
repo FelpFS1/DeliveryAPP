@@ -12,9 +12,10 @@ import { Button } from "./ui/button";
 
 import ComplementSection from "./ComplementsSection";
 import ComplementsPaidSection from "./ComplementsPaidSection";
-import { ComplementsType } from "@/reducers/complementsTypes";
-import { useCallback, useState } from "react";
+import { ComplementsType } from "@/reducers/complements/complementsTypes";
+import { useCallback, useReducer, useState } from "react";
 import FlavorSection from "./FlavorSection";
+import { orderQuantityReducer } from "@/reducers/order/order-quantity";
 
 export interface ProductToCartType {
   id?: string;
@@ -27,6 +28,10 @@ export interface ProductToCartType {
 }
 
 export default function CardProduct({ db }: { db: dbTypes }) {
+  const [orderQuantity, orderQuantityDispatch] = useReducer(
+    orderQuantityReducer,
+    1,
+  );
   const [productToCart, setProductToCart] = useState<ProductToCartType>({
     name: db.name,
     price: db.price,
@@ -34,14 +39,18 @@ export default function CardProduct({ db }: { db: dbTypes }) {
 
   const { complements, paidExtras } = db.additional;
 
-  const handleCreateProductToCart = useCallback((data: ProductToCartType) => {
-    setProductToCart((state) => {
-      return {
-        ...state,
-        ...data,
-      };
-    });
-  }, []);
+  const handleCreateProductToCart = useCallback(
+    (data: ProductToCartType) => {
+      setProductToCart((state) => {
+        return {
+          ...state,
+          ...data,
+          quantity: orderQuantity,
+        };
+      });
+    },
+    [orderQuantity],
+  );
 
   const handleAddProductToCart = () => {
     console.log(productToCart);
@@ -103,15 +112,29 @@ export default function CardProduct({ db }: { db: dbTypes }) {
                 />
                 <div className="fixed bottom-2 flex w-1/2 items-center justify-between bg-white p-4">
                   <div className="flex items-center justify-center gap-3 rounded border p-2">
-                    <Minus />
+                    <Minus
+                      className="cursor-pointer"
+                      onClick={() =>
+                        orderQuantityDispatch({ type: "DECREMENT_QUANTITY" })
+                      }
+                    />
 
-                    <span>1</span>
-                    <Plus />
+                    <span>{orderQuantity}</span>
+                    <Plus
+                      className="cursor-pointer"
+                      onClick={() =>
+                        orderQuantityDispatch({ type: "INCREMENT_QUANTITY" })
+                      }
+                    />
                   </div>
                   <div>
                     <Button
                       type="button"
                       onClick={() => handleAddProductToCart()}
+                      disabled={
+                        productToCart.simpleComplements &&
+                        productToCart.simpleComplements?.length < 1
+                      }
                     >
                       Adicionar
                     </Button>

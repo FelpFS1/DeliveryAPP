@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useReducer } from "react";
 import ComplementProductItem from "./ComplementProductItem";
-import { complementsPaidReducer } from "@/reducers/complementsPaid";
-import { ComplementsType } from "@/reducers/complementsTypes";
+import { ComplementsType } from "@/reducers/complements/complementsTypes";
 import { ProductToCartType } from "./CardProduct";
+import { complementsPaidReducer } from "@/reducers/complements/complementsPaid";
 
 interface PaidComplementsSectionProps {
   paidComplements: ComplementsType[];
@@ -54,7 +54,7 @@ export default function ComplementsPaidSection({
   }, [complementsExtras, handleCreateProductToCart]);
 
   return (
-    <section className="mb-12">
+    <section className="mt-4">
       <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-3">
         <div>
           <h4 className="text-lg">Adicionais (pagos)</h4>

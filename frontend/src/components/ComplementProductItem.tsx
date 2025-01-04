@@ -1,4 +1,4 @@
-import { Actions } from "@/reducers/complementsTypes";
+import { Actions } from "@/reducers/complements/complementsTypes";
 
 import React from "react";
 import { Minus, Plus } from "lucide-react";

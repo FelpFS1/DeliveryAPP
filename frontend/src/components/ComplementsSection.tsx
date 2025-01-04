@@ -2,8 +2,9 @@ import { Check } from "lucide-react";
 import { useEffect, useMemo, useReducer } from "react";
 import ComplementProductItem from "./ComplementProductItem";
 import { ComplementsType } from "@/db/fakedb";
-import { complementsReducer } from "@/reducers/complementsReducer";
+
 import { ProductToCartType } from "./CardProduct";
+import { complementsReducer } from "@/reducers/complements/complementsReducer";
 
 interface ComplementsSectionProps {
   complements: ComplementsType[];
