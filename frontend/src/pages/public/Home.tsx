@@ -1,10 +1,8 @@
 import CardProduct from "@/components/CardProduct";
 import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
-import { RootState } from "@/redux/store";
 import { ArrowRight, Dot, ShoppingCart } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import Header from "@/components/Header";
@@ -16,7 +14,6 @@ interface SepareteProducts {
   content: dbTypes[];
 }
 export default function HomePage() {
-  const theme = useSelector((state: RootState) => state.theme.theme);
   const [cartIsOpen, setCartIsOpen] = useState(false);
   const navigate = useNavigate();
   const { user, isLoaded } = useUser();
@@ -73,7 +70,7 @@ export default function HomePage() {
                 Delivery
               </p>
               <footer
-                className={`flex h-10 w-full items-center justify-center rounded-b-2xl ${theme == "dark" ? "bg-zinc-800" : "bg-primary"}`}
+                className={`flex h-10 w-full items-center justify-center rounded-b-2xl bg-primary`}
               >
                 <p className="flex items-center justify-center text-sm font-bold">
                   <Dot className="h-10 w-10 animate-pulse text-red-800" /> Loja
