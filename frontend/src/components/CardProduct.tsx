@@ -12,12 +12,13 @@ import { Button } from "./ui/button";
 
 import ComplementSection from "./ComplementsSection";
 import ComplementsPaidSection from "./ComplementsPaidSection";
-import { useCallback, useReducer, useState } from "react";
+import { useCallback, useMemo, useReducer, useState } from "react";
 import FlavorSection from "./FlavorSection";
 import { orderQuantityReducer } from "@/reducers/order/order-quantity";
 import { ProductToCartType } from "@/features/redux/types/cartProductType";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/features/redux/cart/cart-slice";
+import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
 
 export default function CardProduct({ db }: { db: dbTypes }) {
   const dispatch = useDispatch();
@@ -48,6 +49,10 @@ export default function CardProduct({ db }: { db: dbTypes }) {
   const handleAddProductToCart = () => {
     dispatch(addToCart(productToCart));
   };
+
+  const calculatedPrice = useMemo(() => {
+    return calculateTotalPrice(productToCart);
+  }, [productToCart]);
 
   return (
     <Dialog>
@@ -129,7 +134,8 @@ export default function CardProduct({ db }: { db: dbTypes }) {
                         productToCart.simpleComplements?.length < 1
                       }
                     >
-                      Adicionar
+                      <span className="font-bold">Adicionar</span>
+                      <span className="font-bold">R${calculatedPrice}</span>
                     </Button>
                   </div>
                 </div>

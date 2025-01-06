@@ -5,6 +5,7 @@ import { Dialog, DialogTrigger } from "./ui/dialog";
 import AdressModal from "./AdressModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/features/redux/store";
+import { useEffect } from "react";
 
 interface CartPropsTypes {
   isOpen: boolean;
@@ -15,6 +16,9 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
   const { cart, cartTotalPrice } = useSelector(
     (state: RootState) => state.cart,
   );
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
 
   return (
     <div
