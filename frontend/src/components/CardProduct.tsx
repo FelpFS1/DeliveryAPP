@@ -22,7 +22,8 @@ import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
 
 export default function CardProduct({ db }: { db: dbTypes }) {
   const dispatch = useDispatch();
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [cartModalIsOpen, setCartModalIsOpen] = useState(false);
+
   const [orderQuantity, orderQuantityDispatch] = useReducer(
     orderQuantityReducer,
     1,
@@ -49,7 +50,7 @@ export default function CardProduct({ db }: { db: dbTypes }) {
 
   const handleAddProductToCart = () => {
     dispatch(addToCart(productToCart));
-    setModalIsOpen(false);
+    setCartModalIsOpen(false);
   };
 
   const calculatedPrice = useMemo(() => {
@@ -57,13 +58,13 @@ export default function CardProduct({ db }: { db: dbTypes }) {
   }, [orderQuantity, productToCart]);
 
   useEffect(() => {
-    if (!modalIsOpen) {
+    if (!cartModalIsOpen) {
       orderQuantityDispatch({ type: "RESET_QUANTITY" });
     }
-  }, [modalIsOpen]);
+  }, [cartModalIsOpen]);
   return (
-    <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen}>
-      <DialogTrigger onClick={() => setModalIsOpen(true)}>
+    <Dialog open={cartModalIsOpen} onOpenChange={setCartModalIsOpen}>
+      <DialogTrigger onClick={() => setCartModalIsOpen(true)}>
         <div className="grid h-48 w-full cursor-pointer grid-cols-2 items-center rounded-2xl border-2 bg-white p-2 text-left shadow-md">
           <div className="flex flex-col gap-2">
             <h4 className="text-black">{db.name}</h4>
