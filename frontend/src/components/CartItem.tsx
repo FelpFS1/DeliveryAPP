@@ -1,4 +1,5 @@
 import {
+  decrementQuantityCartItem,
   deleteCartItem,
   incrementQuantityCartItem,
 } from "@/features/redux/cart/cart-slice";
@@ -29,7 +30,10 @@ export default function CartItem({ cartItem }: CartItemProps) {
             className="flex items-center gap-1 px-1"
             onClick={() => setIsShowInfo((state) => !state)}
           >
-            <MinusIcon size={20} />
+            <MinusIcon
+              size={20}
+              onClick={() => dispath(decrementQuantityCartItem(cartItem.id))}
+            />
             <span>{cartItem.quantity}</span>
             <PlusIcon
               size={20}

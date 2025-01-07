@@ -41,6 +41,26 @@ export const cartSlice = createSlice({
 
       state.cartTotalPrice = updatedTotalPrice;
     },
+
+    decrementQuantityCartItem: (state, action) => {
+      let updatedTotalPrice = state.cartTotalPrice;
+      state.cart = state.cart
+        .map((item) => {
+          if (item.id === action.payload && item.quantity && item.totalPrice) {
+            const updatedItem = {
+              ...item,
+              quantity: (item.quantity -= 1),
+            };
+            updatedTotalPrice -= updatedItem.totalPrice || 0;
+
+            return updatedItem;
+          }
+          return item;
+        })
+        .filter((item) => item.quantity && item.quantity > 0);
+
+      state.cartTotalPrice = updatedTotalPrice;
+    },
     deleteCartItem: (state, action: PayloadAction<string>) => {
       const indexCartItem = state.cart.findIndex(
         (item) => item.id === action.payload,
@@ -53,7 +73,11 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, incrementQuantityCartItem, deleteCartItem } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  incrementQuantityCartItem,
+  decrementQuantityCartItem,
+  deleteCartItem,
+} = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;
