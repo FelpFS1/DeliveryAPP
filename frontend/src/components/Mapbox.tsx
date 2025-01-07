@@ -7,7 +7,7 @@ import {
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { CoordinatesType } from "./AdressForm";
-import { MapPin } from "lucide-react";
+import { MapPinHouse } from "lucide-react";
 
 interface MapboxTypes {
   coordinates: {
@@ -90,7 +90,7 @@ export default function Mapbox({
           onDragEnd={handleMarkerDragEnd} // Atualiza as coordenadas ao soltar o marcador
         >
           <div style={{ color: "red", fontSize: "20px" }}>
-            <MapPin />
+            <MapPinHouse />
           </div>
         </Marker>
       </Map>
