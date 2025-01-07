@@ -21,7 +21,7 @@ export const cartSlice = createSlice({
           totalPrice: productTotalPrice,
           id: (Math.random() * 9999).toString(),
         });
-        state.cartTotalPrice += productTotalPrice;
+        state.cartTotalPrice += productTotalPrice * quantity;
       }
     },
     incrementQuantityCartItem: (state, action) => {

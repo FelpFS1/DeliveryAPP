@@ -12,13 +12,17 @@ export function orderQuantityReducer(
     return state > 1 ? state - 1 : 1;
   };
 
+  const resetOrderQuantity = () => {
+    return (state = 1);
+  };
   switch (actions.type) {
     case "INCREMENT_QUANTITY":
       return incrementOrderQuantity();
 
     case "DECREMENT_QUANTITY":
       return decrementOrderQuantity();
-
+    case "RESET_QUANTITY":
+      return resetOrderQuantity();
     default:
       return state;
   }

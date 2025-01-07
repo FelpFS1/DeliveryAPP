@@ -9,6 +9,6 @@ export const calculateTotalPrice = (data: ProductToCartType) => {
       }
       return prev;
     }, 0);
-    return (totalPrice + +price) * quantity;
+    return totalPrice + +price;
   } else return 0;
 };

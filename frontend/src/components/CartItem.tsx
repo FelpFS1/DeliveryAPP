@@ -18,6 +18,7 @@ interface CartItemProps {
 }
 export default function CartItem({ cartItem }: CartItemProps) {
   const [isShowInfo, setIsShowInfo] = useState(false);
+
   const dispath = useDispatch();
   return (
     <div
