@@ -67,6 +67,7 @@ export default function HomePage() {
       {isShow ? (
         <div>
           <Header />
+
           <main className="h-full w-full px-10">
             <header className="relative bottom-10 h-36 w-full rounded-2xl border-2 bg-white shadow-md">
               <div className="relative bottom-10 m-auto h-20 w-20 rounded-full bg-zinc-100">
