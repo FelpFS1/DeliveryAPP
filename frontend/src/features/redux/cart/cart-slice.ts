@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialStateType, ProductToCartType } from "../types/cartProductType";
+import {
+  AnimatingCartProps,
+  initialStateType,
+  ProductToCartType,
+} from "../types/cartProductType";
 import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
 
 const initialState: initialStateType = {
   cart: [],
   cartTotalPrice: 0,
+  isAnimatingCart: {} as AnimatingCartProps,
 };
 
 export const cartSlice = createSlice({
@@ -22,6 +27,7 @@ export const cartSlice = createSlice({
           id: (Math.random() * 9999).toString(),
         });
         state.cartTotalPrice += productTotalPrice * quantity;
+        state.isAnimatingCart = { isAnimating: true, situation: "ADD" };
       }
     },
     incrementQuantityCartItem: (state, action) => {
@@ -69,6 +75,11 @@ export const cartSlice = createSlice({
       if (removedCartItem[0].totalPrice && removedCartItem[0].quantity)
         state.cartTotalPrice -=
           removedCartItem[0].totalPrice * removedCartItem[0].quantity;
+      state.isAnimatingCart = { isAnimating: true, situation: "REMOVE" };
+    },
+
+    resetAnimation: (state) => {
+      state.isAnimatingCart.isAnimating = false;
     },
   },
 });
@@ -78,6 +89,7 @@ export const {
   incrementQuantityCartItem,
   decrementQuantityCartItem,
   deleteCartItem,
+  resetAnimation,
 } = cartSlice.actions;
 
 export const cartReducer = cartSlice.reducer;

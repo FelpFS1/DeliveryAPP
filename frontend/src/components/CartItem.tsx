@@ -2,6 +2,7 @@ import {
   decrementQuantityCartItem,
   deleteCartItem,
   incrementQuantityCartItem,
+  resetAnimation,
 } from "@/features/redux/cart/cart-slice";
 import { ProductToCartType } from "@/features/redux/types/cartProductType";
 import {
@@ -20,6 +21,13 @@ export default function CartItem({ cartItem }: CartItemProps) {
   const [isShowInfo, setIsShowInfo] = useState(false);
 
   const dispath = useDispatch();
+
+  const handleDeleteCartItem = () => {
+    dispath(deleteCartItem(cartItem.id || ""));
+    setTimeout(() => {
+      dispath(resetAnimation());
+    }, 2000);
+  };
   return (
     <div
       className="mx-auto mb-2 w-[90%] cursor-pointer rounded-md border bg-white p-2 shadow-lg"
@@ -53,10 +61,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           className="flex cursor-pointer flex-row items-center gap-2"
           onClick={() => setIsShowInfo((state) => !state)}
         >
-          <Trash
-            size={20}
-            onClick={() => dispath(deleteCartItem(cartItem.id || ""))}
-          />
+          <Trash size={20} onClick={() => handleDeleteCartItem()} />
           {isShowInfo ? (
             <ChevronUp onClick={() => setIsShowInfo((state) => !state)} />
           ) : (

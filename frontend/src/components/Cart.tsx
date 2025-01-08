@@ -1,10 +1,11 @@
-import { X } from "lucide-react";
+import { DollarSign, X } from "lucide-react";
 import { Button } from "./ui/button";
 import CartItem from "./CartItem";
 import { Dialog, DialogTrigger } from "./ui/dialog";
 import AdressModal from "./AdressModal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/features/redux/store";
+import { useEffect } from "react";
 
 interface CartPropsTypes {
   isOpen: boolean;
@@ -15,6 +16,14 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
   const { cart, cartTotalPrice } = useSelector(
     (state: RootState) => state.cart,
   );
+
+  useEffect(() => {
+    if (cart.length < 1) {
+      handleOpenOrClose();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cart.length]);
+
   return (
     <div
       className={`${isOpen ? "block" : "hidden"} fixed inset-0 left-0 right-0 top-0 z-50 h-screen w-screen bg-black/80`}
@@ -42,7 +51,12 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
         <footer className="absolute bottom-0 z-50 flex w-full items-center justify-between border-t bg-white p-4">
           <div className="flex flex-col">
             <p>Valor total:</p>
-            <span>RS{cartTotalPrice}</span>
+            <div className="flex flex-row items-center gap-1">
+              <div className="flex h-4 w-4 items-center justify-center rounded-full border border-primary font-bold">
+                <DollarSign className="text-primary" />
+              </div>
+              <span>{cartTotalPrice}</span>
+            </div>
           </div>
           <div>
             <Dialog>

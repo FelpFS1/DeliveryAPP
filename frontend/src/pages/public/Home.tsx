@@ -2,35 +2,30 @@ import CardProduct from "@/components/CardProduct";
 import Loading from "@/components/Loading";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Dot, ShoppingCart } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 import Header from "@/components/Header";
 
 import { db, dbTypes } from "@/db/fakedb";
 import Cart from "@/components/Cart";
-import { useSelector } from "react-redux";
 import { RootState } from "@/features/redux/store";
+import { useSelector } from "react-redux";
 
 interface SepareteProducts {
   type: string;
   content: dbTypes[];
 }
-interface AnimatingCartProps {
-  situation?: "ADD" | "REMOVE";
-  isAnimating: boolean;
-}
+
 export default function HomePage() {
   const [cartIsOpen, setCartIsOpen] = useState(false);
 
-  const [isAnimatingCart, setIsAnimatingCart] = useState({
-    isAnimating: false,
-  } as AnimatingCartProps);
-
   const navigate = useNavigate();
   const { user, isLoaded } = useUser();
-  const { cart } = useSelector((state: RootState) => state.cart);
-  const oldCartLengthRef = useRef(cart.length);
+  const { cart, isAnimatingCart } = useSelector(
+    (state: RootState) => state.cart,
+  );
+
   const separeteProductsType = useMemo(() => {
     return db.reduce((prev, curr) => {
       const isExistType = prev.find((item) => item.type === curr.productType);
@@ -66,22 +61,6 @@ export default function HomePage() {
       navigate("/login");
     }
   }, [isLoaded, role, navigate]);
-  useEffect(() => {
-    const oldCartLength = oldCartLengthRef.current;
-
-    if (cart.length > oldCartLength) {
-      setIsAnimatingCart({ isAnimating: true, situation: "ADD" });
-      setTimeout(() => {
-        setIsAnimatingCart({ isAnimating: false });
-      }, 1000);
-    } else if (cart.length < oldCartLength) {
-      setIsAnimatingCart({ isAnimating: true, situation: "REMOVE" });
-      setTimeout(() => {
-        setIsAnimatingCart({ isAnimating: false });
-      }, 2000);
-    }
-    oldCartLengthRef.current = cart.length;
-  }, [cart.length]);
 
   return (
     <>

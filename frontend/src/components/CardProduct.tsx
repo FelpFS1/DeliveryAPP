@@ -17,7 +17,7 @@ import FlavorSection from "./FlavorSection";
 import { orderQuantityReducer } from "@/reducers/order/order-quantity";
 import { ProductToCartType } from "@/features/redux/types/cartProductType";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/features/redux/cart/cart-slice";
+import { addToCart, resetAnimation } from "@/features/redux/cart/cart-slice";
 import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
 
 export default function CardProduct({ db }: { db: dbTypes }) {
@@ -51,6 +51,9 @@ export default function CardProduct({ db }: { db: dbTypes }) {
   const handleAddProductToCart = () => {
     dispatch(addToCart(productToCart));
     setCartModalIsOpen(false);
+    setTimeout(() => {
+      dispatch(resetAnimation());
+    }, 2000);
   };
 
   const calculatedPrice = useMemo(() => {
