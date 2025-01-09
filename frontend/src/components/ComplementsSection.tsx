@@ -3,8 +3,8 @@ import { useEffect, useMemo, useReducer } from "react";
 import ComplementProductItem from "./ComplementProductItem";
 import { ComplementsType } from "@/db/fakedb";
 
-import { ProductToCartType } from "./CardProduct";
 import { complementsReducer } from "@/reducers/complements/complementsReducer";
+import { ProductToCartType } from "@/features/redux/types/cartProductType";
 
 interface ComplementsSectionProps {
   complements: ComplementsType[];

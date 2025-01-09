@@ -69,11 +69,11 @@ export default function CardProduct({ db }: { db: dbTypes }) {
     <Dialog open={cartModalIsOpen} onOpenChange={setCartModalIsOpen}>
       <DialogTrigger onClick={() => setCartModalIsOpen(true)}>
         <div className="grid h-48 w-full cursor-pointer grid-cols-2 items-center rounded-2xl border-2 bg-white p-2 text-left shadow-md">
-          <div className="flex flex-col gap-1 lg:gap-4">
+          <div className="flex flex-col gap-1 lg:gap-2">
             <h4 className="text-black">{db.name}</h4>
             <p className="text-gray-500">{db.observation}</p>
             <span className="flex gap-1 text-sm font-bold text-black md:text-base">
-              <User className="h-5 w-5 lg:h-10 lg:w-10" />
+              <User className="" />
               Serve {db.service} pessoa
             </span>
             <span className="text-sm font-bold text-black lg:text-base">

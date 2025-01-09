@@ -1,4 +1,4 @@
-import { Actions } from "@/reducers/complements/complementsTypes";
+import { ComplementsActions } from "@/reducers/complements/complementsTypes";
 
 import React from "react";
 import { Minus, Plus } from "lucide-react";
@@ -6,8 +6,11 @@ import { ComplementsType } from "@/db/fakedb";
 interface ComplementsProductTypes {
   complement: ComplementsType;
   handleDispatch: {
-    dispatch: React.Dispatch<Actions>;
-    types: { increment: string; decrement: string };
+    dispatch: React.Dispatch<ComplementsActions>;
+    types: {
+      increment: "INCREMENT_COMPLEMENT_QUANTITY";
+      decrement: "DECREMENT_COMPLEMENT_QUANTITY";
+    };
   };
   complementQuantity: number;
 }

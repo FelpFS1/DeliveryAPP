@@ -31,7 +31,7 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
       <div
         className={`${
           isOpen ? "animate-slide-in-from-right" : "animate-slide-out-to-right"
-        } absolute right-0 top-0 z-50 h-screen w-[30vw] bg-white`}
+        } absolute right-0 top-0 z-50 h-screen w-[80vw] bg-white md:w-[50vw] lg:w-[30vw]`}
       >
         <header className="relative mb-10 flex w-full items-center justify-center">
           <h2 className="text-center text-2xl">Carrinho</h2>
@@ -48,9 +48,9 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
             <CartItem key={cartItem.id} cartItem={cartItem} />
           ))}
         </main>
-        <footer className="absolute bottom-0 z-50 flex w-full items-center justify-between border-t bg-white p-4">
+        <footer className="absolute bottom-0 z-50 flex w-full items-center justify-between border-t bg-white p-1">
           <div className="flex flex-col">
-            <p>Valor total:</p>
+            <p className="text-sm sm:text-base">Valor total:</p>
             <div className="flex flex-row items-center gap-1">
               <div className="flex h-4 w-4 items-center justify-center rounded-full border border-primary font-bold">
                 <DollarSign className="text-primary" />
@@ -61,7 +61,11 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
           <div>
             <Dialog>
               <DialogTrigger asChild>
-                {cart.length > 0 && <Button>Prosseguir para pagamento</Button>}
+                {cart.length > 0 && (
+                  <Button className="p-2 text-xs sm:p-4 sm:text-sm">
+                    Prosseguir para pagamento
+                  </Button>
+                )}
               </DialogTrigger>
               <AdressModal />
             </Dialog>
