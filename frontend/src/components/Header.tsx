@@ -1,5 +1,7 @@
 import { UserButton } from "@clerk/clerk-react";
 import { MapPin } from "lucide-react";
+import { Dialog, DialogTrigger } from "./ui/dialog";
+import AdressModal from "./AdressModal";
 
 interface HeaderProps {
   isAdmin?: boolean;
@@ -10,7 +12,14 @@ export default function Header({ isAdmin }: HeaderProps) {
       <div className="ml-4">
         <UserButton />
       </div>
-      {!isAdmin && <MapPin className="mr-4 font-bold text-primary" />}
+      {!isAdmin && (
+        <Dialog>
+          <DialogTrigger asChild>
+            <MapPin className="mr-4 cursor-pointer font-bold text-primary" />
+          </DialogTrigger>
+          <AdressModal />
+        </Dialog>
+      )}
     </header>
   );
 }

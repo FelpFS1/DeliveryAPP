@@ -61,7 +61,7 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
           <div>
             <Dialog>
               <DialogTrigger asChild>
-                <Button>Prosseguir para pagamento</Button>
+                {cart.length > 0 && <Button>Prosseguir para pagamento</Button>}
               </DialogTrigger>
               <AdressModal />
             </Dialog>
