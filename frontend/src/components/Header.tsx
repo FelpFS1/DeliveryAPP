@@ -15,7 +15,7 @@ export default function Header({ isAdmin }: HeaderProps) {
       {!isAdmin && (
         <Dialog>
           <DialogTrigger asChild>
-            <MapPin className="mr-4 cursor-pointer font-bold text-primary" />
+            <MapPin className="mr-4 h-7 w-7 cursor-pointer font-bold text-primary" />
           </DialogTrigger>
           <AdressModal />
         </Dialog>

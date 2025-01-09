@@ -68,7 +68,7 @@ export default function HomePage() {
         <div>
           <Header />
 
-          <main className="h-full w-full px-10">
+          <main className="h-full w-full px-5 md:px-10">
             <header className="relative bottom-10 h-36 w-full rounded-2xl border-2 bg-white shadow-md">
               <div className="relative bottom-10 m-auto h-20 w-20 rounded-full bg-zinc-100">
                 <img
@@ -94,7 +94,7 @@ export default function HomePage() {
                 <h2 className="mb-2 flex items-center text-xl font-bold">
                   <ArrowRight /> {item.type}
                 </h2>
-                <div className="grid grid-cols-2 gap-5">
+                <div className="grid gap-5 md:grid-cols-2">
                   {item.content.map((item) => (
                     <CardProduct key={item.id} db={item} />
                   ))}
@@ -102,9 +102,9 @@ export default function HomePage() {
               </section>
             ))}
 
-            <div className="fixed bottom-5 right-10">
+            <div className="fixed bottom-3 right-2">
               <Button
-                className={`flex h-12 w-60 items-center justify-center rounded-full bg-primary font-bold text-white transition-all duration-500 ${isAnimatingCart.isAnimating ? "w-72" : "w-12"}`}
+                className={`flex h-12 w-60 items-center justify-center rounded-full bg-primary font-bold text-white transition-all duration-500 ${isAnimatingCart.isAnimating ? "w-60 md:w-72" : "w-12"}`}
                 onClick={() => handleOpenOrCloseCart()}
               >
                 {isAnimatingCart.isAnimating && (
@@ -115,7 +115,7 @@ export default function HomePage() {
                   </span>
                 )}
                 {cart.length > 0 && (
-                  <span className="absolute bottom-9 right-1 h-5 w-5 rounded-full bg-white text-center text-black">
+                  <span className="absolute bottom-9 right-2 h-5 w-5 rounded-full bg-white text-center text-black">
                     {cart.length}
                   </span>
                 )}
