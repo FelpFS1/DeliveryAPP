@@ -1,4 +1,3 @@
-import { Check } from "lucide-react";
 import { useEffect, useMemo, useReducer } from "react";
 import ComplementProductItem from "./ComplementProductItem";
 import { ComplementsType } from "@/db/fakedb";
@@ -42,24 +41,16 @@ export default function ComplementSection({
 
   return (
     <section className="">
-      <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-3">
+      <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-2 md:p-3">
         <div>
-          <h4 className="text-lg">Complementos</h4>
-          <p>Escolha pelo menos 1 opção</p>
+          <h4 className="font-bold md:text-lg">Complementos</h4>
+          <p className="text-sm md:text-base">Escolha pelo menos 1 opção</p>
         </div>
-        <div className="flex items-center justify-end gap-4">
-          <span className="flex items-center rounded bg-gray-400 p-1 font-medium">
-            {quantityComplements}/3
-          </span>
+        <div className="flex items-center justify-end gap-1 md:gap-4">
           <span
-            className={`${quantityComplements > 0 ? "bg-green-400" : "bg-gray-400"} rounded px-2 py-1 font-medium uppercase`}
+            className={`${quantityComplements > 0 ? "bg-green-400" : "bg-gray-400"} rounded p-1 text-sm uppercase md:px-2 md:font-medium`}
           >
             obrigatório
-          </span>
-          <span
-            className={`${quantityComplements > 0 ? "text-green-400 opacity-100" : "opacity-0"}`}
-          >
-            <Check />
           </span>
         </div>
       </header>

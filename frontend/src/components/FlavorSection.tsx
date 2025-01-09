@@ -2,7 +2,7 @@ import { RadioGroup } from "./ui/radio-group";
 import FlavorProductItem from "./FlavorProductItem";
 import { dbTypes } from "@/db/fakedb";
 import { useEffect, useState } from "react";
-import { ProductToCartType } from "./CardProduct";
+import { ProductToCartType } from "@/features/redux/types/cartProductType";
 
 interface FlavorSectionProps {
   db: dbTypes;
@@ -23,8 +23,8 @@ export default function FlavorSection({
     <section>
       <header className="mt-4 grid w-full grid-cols-2 rounded-md bg-gray-200 p-3">
         <div>
-          <h4 className="text-lg">Sabores</h4>
-          <p>Escolha até 1 sabor</p>
+          <h4 className="font-bold md:text-lg">Sabores</h4>
+          <p className="text-sm md:text-base">Escolha até 1 sabor</p>
         </div>
       </header>
       <RadioGroup

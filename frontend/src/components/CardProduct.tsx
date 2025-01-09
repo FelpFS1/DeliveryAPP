@@ -91,10 +91,10 @@ export default function CardProduct({ db }: { db: dbTypes }) {
       </DialogTrigger>
 
       <DialogContent className="h-[95vh] w-[95vw]">
-        <div className="grid grid-cols-2">
-          <div className="">
+        <div className="relative grid grid-cols-1 md:grid-cols-2">
+          <div className="flex items-center justify-center">
             <img
-              className="w-[80%]"
+              className="w-[40%] md:w-[80%]"
               src="https://jusacai.com.br/assets/uploads/produtos/2/648765695540fic1iud.png"
               alt=""
             />
@@ -102,13 +102,18 @@ export default function CardProduct({ db }: { db: dbTypes }) {
           <div>
             <DialogHeader>
               <DialogTitle className="text-center">{db.name}</DialogTitle>
-              <DialogDescription className="flex flex-col text-xl">
+              <DialogDescription className="flex flex-col text-justify text-base md:text-xl">
                 {db.observation}
-                <span className="text-xl font-bold">R$ {db.price},00</span>
+                <span className="text-base font-bold md:text-xl">
+                  R$ {db.price},00
+                </span>
               </DialogDescription>
             </DialogHeader>
-            <main>
-              <form action="" className="h-[80vh] w-full overflow-y-auto">
+            <main className="relative">
+              <form
+                action=""
+                className="max-h-[40vh] w-full justify-center overflow-y-auto md:max-h-[70vh] lg:max-h-[74vh]"
+              >
                 <ComplementSection
                   complements={complements}
                   handleCreateProductToCart={handleCreateProductToCart}
@@ -121,8 +126,8 @@ export default function CardProduct({ db }: { db: dbTypes }) {
                   db={db}
                   handleCreateProductToCart={handleCreateProductToCart}
                 />
-                <div className="fixed bottom-2 flex w-1/2 items-center justify-between bg-white p-4">
-                  <div className="flex items-center justify-center gap-3 rounded border p-2">
+                <div className="fixed bottom-0 flex w-full max-w-[90%] items-center justify-between bg-white p-4 md:left-1/2 md:w-1/2 md:px-4">
+                  <div className="flex items-center gap-3 rounded border p-2">
                     <Minus
                       className="cursor-pointer"
                       onClick={() =>
