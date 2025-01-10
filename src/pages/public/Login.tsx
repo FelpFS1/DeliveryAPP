@@ -15,7 +15,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (!isLoaded) return;
     if (userId) {
-      navigate("/redirect");
+      navigate("/");
     }
   }, [isLoaded, navigate, userId]);
   return (

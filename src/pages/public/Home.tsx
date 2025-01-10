@@ -44,7 +44,7 @@ export default function HomePage() {
     [user?.publicMetadata],
   );
 
-  const isShow = useMemo(() => isLoaded && role === "user", [isLoaded, role]);
+  const isShow = useMemo(() => isLoaded, [isLoaded]); //TODO::
 
   const handleOpenOrCloseCart = () => {
     setCartIsOpen((state) => !state);
@@ -52,15 +52,19 @@ export default function HomePage() {
 
   useEffect(() => {
     if (!isLoaded) return;
-
-    if (role === "admin") {
-      navigate("/admin");
-    } else if (role === "user") {
-      navigate("/");
-    } else {
+    if (!user) {
       navigate("/login");
     }
-  }, [isLoaded, role, navigate]);
+
+    //TODO::
+    // if (role === "admin") {
+    //   navigate("/admin");
+    // } else if (role === "user") {
+    //   navigate("/");
+    // } else {
+    //   navigate("/");
+    // }
+  }, [isLoaded, role, navigate, user]);
 
   return (
     <>
