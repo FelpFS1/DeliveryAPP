@@ -21,7 +21,7 @@ export default function LoginPage() {
   return (
     <>
       {isLoaded ? (
-        <div className="grid h-[calc(661px-24px)] lg:grid-cols-2">
+        <div className="grid h-[calc(100dvh-24px)] max-h-screen lg:grid-cols-2">
           <div className="flex min-h-screen flex-col items-center justify-center gap-3 p-4">
             <h1 className="text-4xl font-bold">Bem-vindo (a)!</h1>
             <p className="text-center text-zinc-400">
