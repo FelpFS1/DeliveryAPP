@@ -25,7 +25,17 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart.length]);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
 
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
   return (
     <div
       className={`${isOpen ? "block" : "hidden"} fixed inset-0 left-0 right-0 top-0 z-50 h-screen w-screen bg-black/80`}
@@ -33,7 +43,7 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
       <div
         className={`${
           isOpen ? "animate-slide-in-from-right" : "animate-slide-out-to-right"
-        } absolute right-0 top-0 z-50 max-h-[95vh] w-[80vw] bg-white md:w-[50vw] lg:w-[30vw]`}
+        } absolute right-0 top-0 z-50 h-screen w-[80vw] bg-white md:w-[50vw] lg:w-[30vw]`}
       >
         <header className="relative mb-10 flex w-full items-center justify-center">
           <h2 className="text-center text-2xl">Carrinho</h2>
