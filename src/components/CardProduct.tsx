@@ -90,7 +90,7 @@ export default function CardProduct({ db }: { db: dbTypes }) {
         </div>
       </DialogTrigger>
 
-      <DialogContent className="h-[95vh] w-[95vw]">
+      <DialogContent className="h-[94vh] w-[92vw] rounded-md md:h-[95vh] md:w-[95vw]">
         <div className="relative grid grid-cols-1 md:grid-cols-2">
           <div className="flex items-center justify-center">
             <img
