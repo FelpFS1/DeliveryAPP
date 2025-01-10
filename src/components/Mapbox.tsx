@@ -64,8 +64,8 @@ export default function Mapbox({
 
   useEffect(() => {
     handlesetCoordinates({
-      latitude: viewport.latitude, // Atualiza a latitude
-      longitude: viewport.longitude, // Atualiza a longitude
+      latitude: viewport.latitude,
+      longitude: viewport.longitude,
     });
   }, [handlesetCoordinates, viewport]);
 
@@ -75,19 +75,17 @@ export default function Mapbox({
         Ajuste o ponteiro para melhor precisão de localização
       </h1>
       <Map
-        {...viewport} // Passando diretamente o estado do viewport
-        onMove={(e) => handleSetViewport(e)} // Atualiza o estado do mapa com o movimento
+        {...viewport}
+        onMove={(e) => handleSetViewport(e)}
         style={{ width: "100%", height: "38vh", borderRadius: ".8rem" }}
-        // O mapa ocupa 80% da largura e altura da tela
-        mapStyle="mapbox://styles/chromepix/cm40h8gny00ja01qrgi5jbhpg" // Estilo do mapa
-        mapboxAccessToken="pk.eyJ1IjoiY2hyb21lcGl4IiwiYSI6ImNtNDBka2c2ZDJhZmUydm85bmhub3VwMXEifQ.TLlqRcumaEHTyHv0PERWQQ" // Substitua pelo seu token válido
+        mapStyle="mapbox://styles/chromepix/cm40h8gny00ja01qrgi5jbhpg"
+        mapboxAccessToken="pk.eyJ1IjoiY2hyb21lcGl4IiwiYSI6ImNtNDBka2c2ZDJhZmUydm85bmhub3VwMXEifQ.TLlqRcumaEHTyHv0PERWQQ"
       >
-        {/* Marker arrastável */}
         <Marker
-          latitude={marker.latitude} // Usando a latitude atualizada
-          longitude={marker.longitude} // Usando a longitude atualizada
-          draggable={true} // Torna o marcador arrastável
-          onDragEnd={handleMarkerDragEnd} // Atualiza as coordenadas ao soltar o marcador
+          latitude={marker.latitude}
+          longitude={marker.longitude}
+          draggable={true}
+          onDragEnd={handleMarkerDragEnd}
         >
           <div style={{ color: "red", fontSize: "20px" }}>
             <MapPinHouse />

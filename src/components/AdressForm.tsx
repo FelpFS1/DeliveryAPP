@@ -181,14 +181,16 @@ export default function AdressForm() {
       ) : (
         <div>
           {coordinates && (
-            <div className="my-5 flex flex-col">
+            <div className="my-2 flex flex-col">
               <Mapbox
                 coordinates={coordinates}
                 handlesetCoordinates={handlesetCoordinates}
               />
               <Button
                 className={`${complementAdressValue.length < 8 ? "disabled:pointer-events-auto disabled:cursor-not-allowed" : "cursor-pointer"} mt-5`}
-                disabled={complementAdressValue.length < 8 || zipCodeValue.length <= 8}
+                disabled={
+                  complementAdressValue.length < 8 || zipCodeValue.length <= 8
+                }
               >
                 Salvar
               </Button>

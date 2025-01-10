@@ -4,7 +4,7 @@ import { DialogContent, DialogTitle } from "./ui/dialog";
 export default function AdressModal() {
   return (
     <DialogContent
-      className="flex w-[60vw] flex-col p-4"
+      className="flex h-[98vh] w-[95vw] flex-col rounded-sm p-0 xl:w-[70vw] xl:p-4"
       aria-describedby={undefined}
     >
       <header className="w-full">
