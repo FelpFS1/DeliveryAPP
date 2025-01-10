@@ -19,7 +19,9 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
 
   useEffect(() => {
     if (cart.length < 1) {
-      handleOpenOrClose();
+      if (isOpen) {
+        handleOpenOrClose();
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart.length]);
