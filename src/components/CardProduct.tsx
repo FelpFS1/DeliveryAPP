@@ -90,11 +90,11 @@ export default function CardProduct({ db }: { db: dbTypes }) {
         </div>
       </DialogTrigger>
 
-      <DialogContent className="h-[94vh] w-[92vw] rounded-md md:h-[95vh] md:w-[95vw]">
+      <DialogContent className="h-[91dvh] min-h-[92vh] w-[92vw] rounded-md md:h-[95vh] md:w-[95vw]">
         <div className="relative grid grid-cols-1 md:grid-cols-2">
           <div className="flex items-center justify-center">
             <img
-              className="w-[40%] md:w-[80%]"
+              className="w-[50%] md:w-[80%]"
               src="https://jusacai.com.br/assets/uploads/produtos/2/648765695540fic1iud.png"
               alt=""
             />
@@ -112,7 +112,7 @@ export default function CardProduct({ db }: { db: dbTypes }) {
             <main className="relative">
               <form
                 action=""
-                className="max-h-[40vh] w-full justify-center overflow-y-auto md:max-h-[70vh] lg:max-h-[74vh]"
+                className="max-h-[38vh] w-full justify-center overflow-y-auto md:max-h-[70vh] lg:max-h-[72vh]"
               >
                 <ComplementSection
                   complements={complements}
