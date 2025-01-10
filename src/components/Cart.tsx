@@ -60,7 +60,7 @@ export default function Cart({ isOpen, handleOpenOrClose }: CartPropsTypes) {
             <CartItem key={cartItem.id} cartItem={cartItem} />
           ))}
         </main>
-        <footer className="absolute bottom-0 z-50 flex w-full items-center justify-between border-t bg-white p-1">
+        <footer className="absolute bottom-0 z-50 flex w-full items-center justify-between border-t bg-white p-1 pb-4 sm:pb-2 lg:pb-0">
           <div className="flex flex-col">
             <p className="text-sm sm:text-base">Valor total:</p>
             <div className="flex flex-row items-center gap-1">
