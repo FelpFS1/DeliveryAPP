@@ -83,6 +83,9 @@
 }
 
 @layer base {
+
+ 
+  
   * {
     @apply border-border;
   }
@@ -91,6 +94,7 @@
     width: 100dvw;
     min-width: 100vw;
     height: 100vh;
+   
     overflow-x: hidden;
   }
 }

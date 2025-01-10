@@ -21,10 +21,10 @@ export default function LoginPage() {
   return (
     <>
       {isLoaded ? (
-        <div className="grid h-screen grid-cols-2 overflow-hidden">
-          <div className="flex h-screen flex-col items-center justify-center gap-3 p-5">
+        <div className="grid h-[calc(661px-24px)] lg:grid-cols-2">
+          <div className="flex min-h-screen flex-col items-center justify-center gap-3 p-4">
             <h1 className="text-4xl font-bold">Bem-vindo (a)!</h1>
-            <p className="text-zinc-400">
+            <p className="text-center text-zinc-400">
               Faça login ou cadastre-se para uma saborosa experiência!
             </p>
             <SignInButton mode="modal" forceRedirectUrl={"/redirect"}>
@@ -34,7 +34,7 @@ export default function LoginPage() {
               </Button>
             </SignInButton>
           </div>
-          <div className="h-[100vh] w-full">
+          <div className="hidden h-[100vh] w-full lg:block">
             <img src={loginPageBg} alt="" className="h-[100vh] w-full" />
           </div>
         </div>
