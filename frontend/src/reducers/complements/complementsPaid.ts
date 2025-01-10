@@ -1,9 +1,9 @@
 import { ComplementsType } from "@/db/fakedb";
-import { PaidComplementsActions } from "./complementsTypes";
+import { CombineActionTypes } from "./complementsTypes";
 
 export function complementsPaidReducer(
   state: ComplementsType[],
-  actions: PaidComplementsActions,
+  actions: CombineActionTypes,
 ): ComplementsType[] {
   const complementName = actions.name;
   const incrementQuantityPaidComplement = () => {

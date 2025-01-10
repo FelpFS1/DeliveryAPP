@@ -6,14 +6,16 @@ import {
   ComplementsActions,
   PaidComplementsActions,
 } from "@/reducers/complements/complementsTypes";
-import { Action } from "redux";
+
+type CombinedActions = PaidComplementsActions | ComplementsActions;
+
 interface ComplementsProductTypes {
   complement: ComplementsType;
   handleDispatch: {
-    dispatch: React.Dispatch<Action>;
+    dispatch: React.Dispatch<CombinedActions>;
     types: {
-      increment: string;
-      decrement: string;
+      increment: CombinedActions["type"];
+      decrement: CombinedActions["type"];
     };
   };
   complementQuantity: number;

@@ -1,9 +1,9 @@
 import { ComplementsType } from "@/db/fakedb";
-import { ComplementsActions } from "./complementsTypes";
+import { CombineActionTypes } from "./complementsTypes";
 
 export function complementsReducer(
   state: ComplementsType[],
-  actions: ComplementsActions,
+  actions: CombineActionTypes,
 ): ComplementsType[] {
   const complementName = actions.name;
 
