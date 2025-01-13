@@ -1,5 +1,3 @@
-import env from "@/env";
-
 import { useEffect, useState } from "react";
 import {
   Map,
@@ -10,6 +8,7 @@ import {
 import "mapbox-gl/dist/mapbox-gl.css";
 import { CoordinatesType } from "./AdressForm";
 import { MapPinHouse } from "lucide-react";
+import { env } from "@/env";
 
 interface MapboxTypes {
   coordinates: {
@@ -76,8 +75,8 @@ export default function Mapbox({
         {...viewport}
         onMove={(e) => handleSetViewport(e)}
         style={{ width: "100%", height: "38vh", borderRadius: ".8rem" }}
-        mapStyle={env.MAP_STYLE}
-        mapboxAccessToken={env.MAPBOX_ACESS_TOKEN}
+        mapStyle={env.VITE_MAP_STYLE}
+        mapboxAccessToken={env.VITE_MAPBOX_ACESS_TOKEN}
       >
         <Marker
           latitude={marker.latitude}
