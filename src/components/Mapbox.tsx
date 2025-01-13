@@ -1,3 +1,5 @@
+import env from "@/env";
+
 import { useEffect, useState } from "react";
 import {
   Map,
@@ -29,10 +31,9 @@ export default function Mapbox({
     height: "100%",
   });
 
-  // Estado para armazenar as coordenadas do marcador
   const [marker, setMarker] = useState({
-    latitude: coordinates.latitude, // Latitude inicial
-    longitude: coordinates.longitude, // Longitude inicial
+    latitude: coordinates.latitude,
+    longitude: coordinates.longitude,
   });
 
   const handleSetViewport = (e: ViewStateChangeEvent) => {
@@ -44,21 +45,18 @@ export default function Mapbox({
     }));
   };
 
-  // Função para lidar com o movimento do marcador e atualizar as coordenadas
   const handleMarkerDragEnd = (event: MarkerDragEvent) => {
-    const { lng, lat } = event.lngLat; // Acessando longitude (lng) e latitude (lat) diretamente
+    const { lng, lat } = event.lngLat;
 
-    // Atualiza as coordenadas do marcador no estado
     setMarker({
-      latitude: lat, // Atualiza a latitude
-      longitude: lng, // Atualiza a longitude
+      latitude: lat,
+      longitude: lng,
     });
 
-    // Atualiza o estado do viewport para centralizar o mapa na nova posição
     setViewport((prevViewport) => ({
       ...prevViewport,
-      latitude: lat, // Atualiza a latitude no viewport
-      longitude: lng, // Atualiza a longitude no viewport
+      latitude: lat,
+      longitude: lng,
     }));
   };
 
@@ -78,8 +76,8 @@ export default function Mapbox({
         {...viewport}
         onMove={(e) => handleSetViewport(e)}
         style={{ width: "100%", height: "38vh", borderRadius: ".8rem" }}
-        mapStyle="mapbox://styles/chromepix/cm40h8gny00ja01qrgi5jbhpg"
-        mapboxAccessToken="pk.eyJ1IjoiY2hyb21lcGl4IiwiYSI6ImNtNDBka2c2ZDJhZmUydm85bmhub3VwMXEifQ.TLlqRcumaEHTyHv0PERWQQ"
+        mapStyle={env.MAP_STYLE}
+        mapboxAccessToken={env.MAPBOX_ACESS_TOKEN}
       >
         <Marker
           latitude={marker.latitude}
