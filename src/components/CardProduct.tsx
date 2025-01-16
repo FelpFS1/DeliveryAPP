@@ -1,5 +1,5 @@
 import { dbTypes } from "@/db/fakedb";
-import { Minus, Plus, User } from "lucide-react";
+import { CreditCard, Minus, Plus, ShoppingCart, User } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -143,7 +143,7 @@ export default function CardProduct({ db }: { db: dbTypes }) {
                       }
                     />
                   </div>
-                  <div>
+                  <div className="flex flex-row justify-center gap-2">
                     <Button
                       type="button"
                       onClick={() => handleAddProductToCart()}
@@ -152,8 +152,19 @@ export default function CardProduct({ db }: { db: dbTypes }) {
                         productToCart.simpleComplements?.length < 1
                       }
                     >
-                      <span className="font-bold">Adicionar</span>
+                      <ShoppingCart />
+
                       <span className="font-bold">R${calculatedPrice}</span>
+                    </Button>
+                    <Button
+                      className="p-2 text-xs sm:p-4 sm:text-sm"
+                      disabled={
+                        productToCart.simpleComplements &&
+                        productToCart.simpleComplements?.length < 1
+                      }
+                    >
+                      <CreditCard />
+                      <span className="font-bold">Pagamento</span>
                     </Button>
                   </div>
                 </div>
